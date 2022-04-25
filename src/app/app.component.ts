@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TesteAngular';
+
+  goToCarros(){
+    console.log('Vai pra carros!');
+  }
 }
