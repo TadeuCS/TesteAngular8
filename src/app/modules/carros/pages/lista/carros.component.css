@@ -1,3 +1,26 @@
 button{
   margin-bottom: 1em;
+  min-width: 120px;
 }
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th, td {
+  overflow: hidden;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-column-actions {
+  text-align: left;
+}
+
+.mat-column-actions, .mat-icon-button{
+  min-height: 30px;
+  margin-top: 5%;
+}
+

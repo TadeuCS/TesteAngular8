@@ -1,25 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { Router, RouterModule } from '@angular/router';
 import { ICarro } from '../../models/icarro.model';
 import { CarrosService } from '../../services/carros.service';
 
-const customColumns = [
+class IColumn {
+  header: string="";
+  columnDef: string="";
+}
+
+class IButton {
+  id: string="";
+  label: string="";
+  color?: string="";
+  icon?: string ="";
+}
+
+const customColumns: IColumn[] = [
   {
     columnDef: 'id',
     header: 'CÓDIGO',
-    cell: (element: ICarro) => `${element.id}`,
   },
   {
     columnDef: 'marca',
     header: 'MARCA',
-    cell: (element: ICarro) => `${element.marca}`,
   },
   {
     columnDef: 'modelo',
     header: 'MODELO',
-    cell: (element: ICarro) => `${element.modelo}`,
-  }
+  },
+];
+
+const buttons : IButton[] = [
+  {
+    id: 'btnEdit',
+    label: 'Editar',
+    color: 'accent',
+    icon: 'edit'
+  },
+  {
+    id: 'btnRemove',
+    label: 'Remover',
+    color: 'warn',
+    icon: 'delete'
+  },
 ];
 
 @Component({
@@ -30,16 +55,21 @@ const customColumns = [
 export class CarrosComponent implements OnInit {
 
   carros: ICarro[] = [];
-  columns = customColumns;
-  displayedColumns = this.columns.map(c => c.columnDef);
+  columnsFields: IColumn[] = customColumns;
+  columnsButtons: IButton[] = buttons;
+  displayedColumns = this.columnsFields.map(c => c.columnDef);
 
-  constructor(private service: CarrosService) { }
+  constructor(private service: CarrosService, private router: Router) { }
 
   ngOnInit(): void {
     this.service.listarTodos().subscribe(carros => {
       this.carros = carros;
       console.log('Carros: ', carros);
     });
+  }
+
+  goToNewCar(){
+    this.router.navigate(['carros/novo']);
   }
 
 }
